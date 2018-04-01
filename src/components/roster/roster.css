@@ -1,0 +1,4 @@
+.roster .pokemon,
+.roster .pokemon-placeholder {
+  display: inline-block;
+}

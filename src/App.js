@@ -1,18 +1,41 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+import Roster from './components/roster';
+import PokedexService from './services/pokedex';
+
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      roster: []
+    };
+
+    this.pokedex = new PokedexService();
+    this.getNewRoster = this.getNewRoster.bind(this);
+    this.getNewRoster();
+  }
+
+  getNewRoster() {
+    this.setState({
+      roster: []
+    });
+
+    this.pokedex.getRoster()
+      .then(roster => {
+        this.setState({roster});
+      });
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          <h1 className="App-title">Pokémon Random Team Generator</h1>
         </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Roster pokemon={this.state.roster}></Roster>
+        <button onClick={this.getNewRoster}>Reroll</button>
       </div>
     );
   }

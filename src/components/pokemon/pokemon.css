@@ -1,0 +1,24 @@
+.pokemon,
+.pokemon-placeholder {
+  margin: 10px;
+}
+
+.pokemon-sprite,
+.pokemon-placeholder-sprite {
+  background: #eee;
+  width: 96px;
+  height: 96px;
+}
+
+.pokemon-placeholder-sprite {
+  text-align: center;
+  line-height: 96px;
+  color: #999;
+  font-size: 36px;
+}
+
+.pokemon-name,
+.pokemon-placeholder-name {
+  margin: 0;
+  font: normal 14px sans-serif;
+}
