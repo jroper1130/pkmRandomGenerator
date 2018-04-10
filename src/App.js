@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import Roster from './components/roster';
+import Options from './components/options';
 import PokedexService from './services/pokedex';
 
 class App extends Component {
@@ -9,11 +10,15 @@ class App extends Component {
     super();
 
     this.state = {
+      options: {
+        maxEvolutionsOnly: true
+      },
       roster: []
     };
 
     this.pokedex = new PokedexService();
     this.getNewRoster = this.getNewRoster.bind(this);
+    this.changeOptions = this.changeOptions.bind(this);
     this.getNewRoster();
   }
 
@@ -22,10 +27,16 @@ class App extends Component {
       roster: []
     });
 
-    this.pokedex.getRoster()
+    this.pokedex.getRoster(this.state.options)
       .then(roster => {
         this.setState({roster});
       });
+  }
+
+  changeOptions(name, value) {
+    this.setState(prevState => ({
+      options: Object.assign(prevState.options, {[name]: value})
+    }));
   }
 
   render() {
@@ -36,6 +47,7 @@ class App extends Component {
         </header>
         <Roster pokemon={this.state.roster}></Roster>
         <button onClick={this.getNewRoster}>Reroll</button>
+        <Options initialState={this.state.options} onChange={this.changeOptions}></Options>
       </div>
     );
   }
